@@ -1,0 +1,281 @@
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 3rem;
+  align-items: start;
+}
+
+/* ─── Form wrapper ─── */
+.formWrap {
+  border: 1px solid var(--border);
+  background: var(--off-black);
+  padding: 2.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.glow {
+  position: absolute;
+  top: -80px;
+  left: -80px;
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(circle, rgba(232,255,110,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ─── Form ─── */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.fieldLabel {
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.input,
+.textarea {
+  background: var(--dark);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  padding: 0.65rem 0.85rem;
+  border-radius: 2px;
+  outline: none;
+  transition: border-color 0.2s;
+  width: 100%;
+  resize: vertical;
+}
+
+.input:focus,
+.textarea:focus {
+  border-color: var(--accent);
+}
+
+.inputError {
+  border-color: #f87171;
+}
+
+/* ─── Service chips ─── */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.chip {
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  padding: 0.35rem 0.8rem;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.15s;
+  border-radius: 2px;
+}
+
+.chip:hover {
+  border-color: var(--text-secondary);
+  color: var(--white);
+}
+
+.chipActive {
+  border-color: var(--accent);
+  background: rgba(232,255,110,0.08);
+  color: var(--accent);
+}
+
+.chipCheck {
+  font-size: 0.6rem;
+  margin-right: 0.25rem;
+  line-height: 1;
+}
+
+/* ─── Submit ─── */
+.submit {
+  width: 100%;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+.submit:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.formNote {
+  font-size: 0.72rem;
+  color: var(--muted);
+  line-height: 1.5;
+  text-align: center;
+}
+
+.errorNote {
+  font-size: 0.72rem;
+  color: #f87171;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.errorNote a {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+/* ─── Success state ─── */
+.thanks {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 3rem 1rem;
+  text-align: center;
+}
+
+.checkIcon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(74,222,128,0.1);
+  border: 1px solid #4ade80;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: #4ade80;
+}
+
+.thanks h3 {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--white);
+}
+
+.thanks p {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  max-width: 360px;
+}
+
+/* ─── Channels ─── */
+.channels {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.channelsIntro {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  border-left: 2px solid var(--border);
+  padding-left: 1rem;
+}
+
+.channelList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.channel {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--border);
+  background: var(--off-black);
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.2s, border-color 0.2s, transform 0.2s;
+}
+
+.channel:hover {
+  border-color: var(--muted);
+}
+
+.channelIcon {
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.channelLabel {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.channelValue {
+  font-size: 0.85rem;
+  color: var(--white);
+  margin-top: 0.15rem;
+}
+
+.availability {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border);
+  background: rgba(74,222,128,0.04);
+}
+
+.availDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #4ade80;
+  flex-shrink: 0;
+  box-shadow: 0 0 6px #4ade80;
+  animation: pulse 2.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+  .channels {
+    order: -1;
+  }
+}
+
+@media (max-width: 480px) {
+  .row { grid-template-columns: 1fr; }
+  .formWrap { padding: 1.5rem; }
+}

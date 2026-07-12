@@ -1,0 +1,70 @@
+.wrapper {
+  position: relative;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 6rem;
+  background: rgba(10, 10, 10, 0.72);
+  z-index: 1;
+  overflow: hidden;
+  height: 72px;
+  display: flex;
+  align-items: center;
+}
+
+/* Scrolling track — no flex-wrap, items stay on one line */
+.track {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  /* will-change tells the browser to GPU-composite this layer */
+  will-change: transform;
+  white-space: nowrap;
+}
+
+.item {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.22rem;
+  padding: 0 2.5rem;
+  border-right: 1px solid var(--border);
+  min-width: 260px;
+  flex-shrink: 0;
+}
+
+.label {
+  font-size: 0.58rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.value {
+  font-family: var(--font-display);
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--white);
+}
+
+.green { color: var(--green); }
+
+/* Fade masks on both edges */
+.fadeLeft,
+.fadeRight {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 120px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.fadeLeft {
+  left: 0;
+  background: linear-gradient(to right, rgba(10,10,10,0.9) 0%, transparent 100%);
+}
+
+.fadeRight {
+  right: 0;
+  background: linear-gradient(to left, rgba(10,10,10,0.9) 0%, transparent 100%);
+}

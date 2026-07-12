@@ -1,0 +1,88 @@
+.pinOuter {
+  position: relative;
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: rgba(10, 10, 10, 0.85);
+  z-index: 1;
+}
+
+.inner {
+  width: 100%;
+}
+
+.header {
+  margin-bottom: 2rem;
+}
+
+.titleAnimated {
+  /* driven entirely by inline style — no CSS transition needed */
+  will-change: transform, opacity;
+  margin-bottom: 0 !important;
+}
+
+/* ── Grid: transparent background so invisible cards leave NO grey ── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  /* No background color here — would show through transparent cards */
+}
+
+/* Each wrapper controls the animation; the card itself always has its bg */
+.cardWrap {
+  will-change: transform, opacity;
+  /* border between cards via box-shadow so it doesn't show when invisible */
+}
+
+.card {
+  background: var(--off-black);
+  border: 1px solid var(--border);
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  height: 100%;
+}
+
+.cardNum {
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+
+.cardTitle {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--white);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.cardDesc {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+}
+
+/* ── Responsive: stack on mobile ── */
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 540px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
