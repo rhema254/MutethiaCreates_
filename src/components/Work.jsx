@@ -45,7 +45,7 @@ const projects = [
     desc: 'Developer portfolio with a terminal-style UI for a backend engineer. Command-line metaphor, projects, certs, and contact — all in one place.',
     problem: 'Client needed a portfolio that communicated technical depth without looking generic.',
     stack: ['Frontend', 'Terminal UI', 'Responsive Design', 'Custom Domain'],
-    href: 'https://mutethiacreates.online/',
+    href: 'https://portfolio.mutethiacreates.online/',
     cta: 'VIEW SITE →',
     transition: 'zoomFade',
   },
