@@ -34,6 +34,7 @@
   flex-shrink: 0;
 }
 
+/* ── Desktop links ── */
 .links {
   display: flex;
   gap: 2rem;
@@ -48,6 +49,7 @@
 }
 .link:hover { color: var(--white); }
 
+/* ── Desktop CTA ── */
 .cta {
   font-size: 0.68rem;
   font-weight: 600;
@@ -58,13 +60,83 @@
   padding: 0.45rem 1rem;
   transition: background 0.2s, color 0.2s;
   white-space: nowrap;
+  text-decoration: none;
 }
 .cta:hover {
   background: var(--accent);
   color: var(--black);
 }
 
+/* ── Hamburger ── */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  flex-shrink: 0;
+}
+
+.bar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--white);
+  border-radius: 2px;
+  transition: transform 0.25s, opacity 0.25s;
+  transform-origin: center;
+}
+
+.barOpen1 { transform: translateY(7px) rotate(45deg); }
+.barOpen2 { opacity: 0; }
+.barOpen3 { transform: translateY(-7px) rotate(-45deg); }
+
+/* ── Mobile drawer ── */
+.drawer {
+  position: fixed;
+  top: 64px;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  background: rgba(10, 10, 10, 0.97);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  padding: 1.5rem 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.drawerLinks {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.drawerLink {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--white);
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--border);
+  text-decoration: none;
+  letter-spacing: -0.01em;
+}
+
+.drawerCta {
+  display: block;
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+/* ── Responsive ── */
 @media (max-width: 640px) {
-  .links { display: none; }
-  .cta { font-size: 0.6rem; padding: 0.4rem 0.75rem; }
+  .links      { display: none; }
+  .desktopCta { display: none; }
+  .hamburger  { display: flex; }
 }

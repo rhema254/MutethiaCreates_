@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
+import ReCAPTCHA from 'react-google-recaptcha'
 import emailjs from '@emailjs/browser'
 import styles from './Contact.module.css'
 
@@ -17,6 +18,7 @@ import styles from './Contact.module.css'
 const EMAILJS_SERVICE_ID  = import.meta.env.VITE_EMAILJS_SERVICE_ID
 const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
 const EMAILJS_PUBLIC_KEY  = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+const RECAPTCHA_SITE_KEY  = import.meta.env.VITE_RECAPTCHA_SITE_KEY
 
 const SERVICES = [
   'API Integration',
@@ -81,10 +83,12 @@ export default function Contact() {
   const ref    = useRef(null)
   const inView = useInView(ref, { once: false, margin: '-80px' })
 
-  const [form, setForm]     = useState({ name: '', email: '', company: '', message: '' })
+  const [form, setForm]         = useState({ name: '', email: '', company: '', message: '' })
   const [services, setServices] = useState(new Set())
-  const [status, setStatus] = useState('idle')
-  const [touched, setTouched] = useState({})
+  const [status, setStatus]     = useState('idle')
+  const [touched, setTouched]   = useState({})
+  const [captcha, setCaptcha]   = useState(null)  // reCAPTCHA token
+  const captchaRef              = useRef(null)
 
   const update = (k, v) => setForm((f) => ({ ...f, [k]: v }))
   const touch  = (k)    => setTouched((t) => ({ ...t, [k]: true }))
@@ -97,7 +101,7 @@ export default function Contact() {
     })
   }
 
-  const valid = form.name.trim() && form.email.includes('@') && services.size > 0
+  const valid = form.name.trim() && form.email.includes('@') && services.size > 0 && !!captcha
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -123,6 +127,9 @@ export default function Contact() {
     } catch (err) {
       console.error('EmailJS error:', err)
       setStatus('error')
+      // Reset captcha on error so user can retry
+      captchaRef.current?.reset()
+      setCaptcha(null)
     }
   }
 
@@ -239,6 +246,17 @@ export default function Contact() {
                   />
                 </div>
 
+                {/* reCAPTCHA */}
+                <div className={styles.captchaWrap}>
+                  <ReCAPTCHA
+                    ref={captchaRef}
+                    sitekey={RECAPTCHA_SITE_KEY || '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'}
+                    onChange={(token) => setCaptcha(token)}
+                    onExpired={() => setCaptcha(null)}
+                    theme="dark"
+                  />
+                </div>
+
                 <motion.button
                   type="submit"
                   className={`btn btn-primary ${styles.submit}`}
@@ -246,7 +264,7 @@ export default function Contact() {
                   whileHover={valid ? { scale: 1.02 } : {}}
                   whileTap={valid ? { scale: 0.98 } : {}}
                 >
-                  {status === 'sending' ? 'Sending…' : 'SCHEDULE A MEETING →'}
+                  {status === 'sending' ? 'Sending…' : 'SCHEDULE A MEETING'}
                 </motion.button>
 
                 {status === 'error' && (

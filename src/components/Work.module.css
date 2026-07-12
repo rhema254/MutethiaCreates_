@@ -215,7 +215,28 @@
   width: 100%;
 }
 
-/* ── Responsive ── */
+/* ── Mobile ── */
+.mobileSection {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.mobileList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.mobileCard {
+  background: var(--off-black);
+  border: 1px solid var(--border);
+  padding: 1.75rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+/* ── Responsive fixes for desktop card ── */
 @media (max-width: 900px) {
   .card {
     grid-template-columns: 1fr;

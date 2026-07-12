@@ -68,6 +68,10 @@ ul { list-style: none; }
   padding: 0 2rem;
 }
 
+@media (max-width: 480px) {
+  .container { padding: 0 1.25rem; }
+}
+
 /* Scrollbar */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--black); }

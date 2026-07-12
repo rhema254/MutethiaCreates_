@@ -30,8 +30,12 @@ export default function Starfield({ fixed = false }) {
       buildStars()
     }
 
+    const isMobile = W < 768
+
     function buildStars() {
-      const count = Math.floor((W * H) / 3800)
+      // Fewer stars on mobile to save GPU
+      const density = isMobile ? 8000 : 3800
+      const count = Math.floor((W * H) / density)
       stars = Array.from({ length: count }, () => ({
         x:     rand(0, W),
         y:     rand(0, H),
@@ -47,20 +51,22 @@ export default function Starfield({ fixed = false }) {
       const startY   = rand(-20, H * 0.35)
       const angleDeg = rand(20, 60)
       const angleRad = angleDeg * (Math.PI / 180)
-      const speed    = rand(1.2, 2.6)   // very slow — deep space feel
+      const speed    = rand(1.2, 2.6)
       shooters.push({
         x: startX, y: startY,
         vx: Math.cos(angleRad) * speed,
         vy: Math.sin(angleRad) * speed,
         len:   rand(60, 130),
         life:  1,
-        decay: rand(0.004, 0.008),  // long-lived
+        decay: rand(0.004, 0.008),
       })
     }
 
+    // Spawn less frequently on mobile
+    const spawnInterval = isMobile ? 6000 : 3500
     const spawnTimer = setInterval(() => {
       if (Math.random() > 0.3) spawnShooter()
-    }, 3500)
+    }, spawnInterval)
 
     // Mouse — track raw target; spotlight interpolates toward it each frame
     const onMouseMove = (e) => {
@@ -98,11 +104,8 @@ export default function Starfield({ fixed = false }) {
         spotY += (targetY - spotY) * LERP
       }
 
-      // ── Spotlight — offscreen blur approach ──
-      // Draw a plain solid ellipse on the offscreen canvas, then composite
-      // it onto main with a heavy blur. The blur converts the hard circle
-      // edge into a smooth Gaussian cloud — no rings, no gradient bands.
-      if (spotX > -100) {
+      // ── Spotlight — skip on mobile (ctx.filter is slow) ──
+      if (spotX > -100 && !isMobile) {
         // Single compact mist — one blurred ellipse, no visible layers
         off.clearRect(0, 0, W, H)
         off.beginPath()

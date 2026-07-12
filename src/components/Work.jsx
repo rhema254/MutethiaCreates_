@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, useInView } from 'framer-motion'
 import BrowserMockup from './BrowserMockup'
 import styles from './Work.module.css'
 
@@ -45,7 +45,7 @@ const projects = [
     desc: 'Developer portfolio with a terminal-style UI for a backend engineer. Command-line metaphor, projects, certs, and contact — all in one place.',
     problem: 'Client needed a portfolio that communicated technical depth without looking generic.',
     stack: ['Frontend', 'Terminal UI', 'Responsive Design', 'Custom Domain'],
-    href: 'https://portfolio.mutethiacreates.online/',
+    href: 'https://mutethiacreates.online/',
     cta: 'VIEW SITE →',
     transition: 'zoomFade',
   },
@@ -296,8 +296,66 @@ function ProjectCarousel({ onInView, fireworksActive }) {
   )
 }
 
+// ─── Mobile: simple stacked cards ─────────────────────────────
+function WorkMobile() {
+  return (
+    <section id="work" className={styles.mobileSection}>
+      <div className="container">
+        <h2 className="section-heading">Projects That Shipped</h2>
+        <div className={styles.mobileList}>
+          {projects.map((p, i) => (
+            <MobileWorkCard key={p.num} project={p} index={i} />
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function MobileWorkCard({ project, index }) {
+  const ref    = useRef(null)
+  const inView = useInView(ref, { once: false, margin: '-40px' })
+  return (
+    <motion.div
+      ref={ref}
+      className={styles.mobileCard}
+      initial={{ opacity: 0, y: 20 }}
+      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+      transition={{ duration: 0.45, delay: index * 0.06 }}
+    >
+      <div className={styles.meta}>
+        <span className={styles.num}>{project.num}</span>
+        <span className={`${styles.badge} ${styles.live}`}>{project.badge}</span>
+      </div>
+      <h3 className={styles.title}>{project.title}</h3>
+      <p className={styles.problem}>{project.problem}</p>
+      <p className={styles.desc}>{project.desc}</p>
+      <div className={styles.stack}>
+        {project.stack.map((s) => <span key={s}>{s}</span>)}
+      </div>
+      <a href={project.href} target="_blank" rel="noopener noreferrer" className={styles.cta}>
+        {project.cta}
+      </a>
+    </motion.div>
+  )
+}
+
 // ─── Main export ──────────────────────────────────────────────
 export default function Work() {
+  const [mobile, setMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 768)
+  useEffect(() => {
+    const check = () => setMobile(window.innerWidth < 768)
+    window.addEventListener('resize', check)
+    check()
+    return () => window.removeEventListener('resize', check)
+  }, [])
+
+  if (mobile) return <WorkMobile />
+
+  return <WorkDesktop />
+}
+
+function WorkDesktop() {
   const sectionRef          = useRef(null)
   const [fwActive, setFwActive] = useState(false)
 

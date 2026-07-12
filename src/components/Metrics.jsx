@@ -1,26 +1,20 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import styles from './Metrics.module.css'
-import mpesaLogo    from '../assets/MpesaInsights Logo.png'
-import sifafxLogo   from '../assets/sifafx.svg'
-import kensLogo     from '../assets/KensSchool.svg'
+import mpesaLogo  from '../assets/MpesaInsights Logo.png'
+import sifafxLogo from '../assets/sifafx.svg'
+import kensLogo   from '../assets/KensSchool.svg'
 
-/**
- * "Clients" section — replaces abstract metrics with real companies.
- * Each card has an SVG logo, company name, engagement type, and key outcome.
- */
 const clients = [
   {
     slug: 'sifafx',
     name: 'SifaFX',
     type: 'Forex Brokerage',
     outcome: '+200% client growth in 60 days',
-    detail: 'Appointment booking platform, Google Calendar + Zoho API integrations.',
+    detail: 'Appointment booking platform with Google Calendar and Zoho API integrations.',
     href: 'https://flask-si.onrender.com/Homepage',
     Logo: () => (
-      <div style={{ width: 56, height: 56, overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <img src={sifafxLogo} alt="SifaFX logo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
-      </div>
+      <img src={sifafxLogo} alt="SifaFX" className={styles.logoImg} />
     ),
   },
   {
@@ -28,12 +22,10 @@ const clients = [
     name: 'Mpesa Insights',
     type: 'FinTech Analytics',
     outcome: 'Real-time spending intelligence',
-    detail: 'Document AI pipeline (AWS Textract), async processing, React dashboard.',
-    href: 'https://mpesainsight.mutethiacreates.online',
+    detail: 'Document AI pipeline using AWS Textract, async processing, React dashboard.',
+    href: 'https://mpesa-wrapped.vercel.app/',
     Logo: () => (
-      <div style={{ width: 56, height: 56, overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <img src={mpesaLogo} alt="Mpesa Insights logo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
-      </div>
+      <img src={mpesaLogo} alt="Mpesa Insights" className={styles.logoImg} />
     ),
   },
   {
@@ -41,12 +33,10 @@ const clients = [
     name: 'Kens Academy',
     type: 'EdTech Platform',
     outcome: 'Multi-role school management system',
-    detail: 'Students, teachers, exams, fees, attendance — one platform, full RBAC.',
+    detail: 'Students, teachers, exams, fees, attendance. One platform, full RBAC.',
     href: 'https://kensacademy.mutethiacreates.online/',
     Logo: () => (
-      <div style={{ width: 56, height: 56, overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <img src={kensLogo} alt="Kens Academy logo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
-      </div>
+      <img src={kensLogo} alt="Kens Academy" className={styles.logoImg} />
     ),
   },
 ]
@@ -56,30 +46,38 @@ function ClientCard({ client, index }) {
   const inView = useInView(ref, { once: false, margin: '-60px' })
 
   return (
-    <motion.a
+    <motion.div
       ref={ref}
-      href={client.href}
-      target="_blank"
-      rel="noopener noreferrer"
       className={styles.card}
       initial={{ opacity: 0, y: 28 }}
       animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 28 }}
       transition={{ duration: 0.6, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
-      whileHover={{ backgroundColor: 'rgba(255,255,255,0.03)', y: -2 }}
     >
-      <div className={styles.logoWrap}>
-        <client.Logo />
-      </div>
-      <div className={styles.info}>
-        <div className={styles.nameRow}>
+      {/* Row 1: logo + name + industry in one horizontal line */}
+      <div className={styles.row1}>
+        <div className={styles.logoWrap}>
+          <client.Logo />
+        </div>
+        <div className={styles.identity}>
           <span className={styles.name}>{client.name}</span>
           <span className={styles.type}>{client.type}</span>
         </div>
+      </div>
+
+      {/* Row 2: outcome, detail, CTA */}
+      <div className={styles.row2}>
         <p className={styles.outcome}>{client.outcome}</p>
         <p className={styles.detail}>{client.detail}</p>
+        <a
+          href={client.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={styles.visitBtn}
+        >
+          Visit Website
+        </a>
       </div>
-      <div className={styles.arrow}>→</div>
-    </motion.a>
+    </motion.div>
   )
 }
 

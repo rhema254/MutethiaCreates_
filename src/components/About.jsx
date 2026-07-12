@@ -76,10 +76,10 @@ export default function About() {
         >
           <div className="section-label">WHO YOU&apos;D BE WORKING WITH</div>
           <h2 className="section-heading">
-            We&apos;re MutethiaCreates — a software studio based in Nairobi.
+            We are MutethiaCreates, a software studio based in Nairobi.
           </h2>
           <p>
-            We take complex problems — broken integrations, systems that don&apos;t scale,
+            We take complex problems — broken integrations, systems that do not scale,
             features stuck in sprint — and ship the fix. Our background spans enterprise Java,
             cloud infrastructure, and AI-powered data work.
           </p>
@@ -88,8 +88,8 @@ export default function About() {
             is the only thing that saves you from rebuilding the same thing twice.
           </p>
           <p>
-            Whether it&apos;s a polished client-facing UI, a payment integration, or a
-            backend that handles real load — we own it end-to-end and explain every tradeoff
+            Whether it is a polished client-facing UI, a payment integration, or a
+            backend that handles real load, we own it end-to-end and explain every tradeoff
             to whoever needs to know.
           </p>
         </motion.div>
