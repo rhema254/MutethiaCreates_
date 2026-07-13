@@ -23,7 +23,7 @@ const clients = [
     type: 'FinTech Analytics',
     outcome: 'Real-time spending intelligence',
     detail: 'Document AI pipeline using AWS Textract, async processing, React dashboard.',
-    href: 'https://mpesa-wrapped.vercel.app/',
+    href: 'https://mpesainsight.mutethiacreates.online',
     Logo: () => (
       <img src={mpesaLogo} alt="Mpesa Insights" className={styles.logoImg} />
     ),
