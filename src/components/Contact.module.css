@@ -12,16 +12,48 @@
   padding: 2.5rem;
   position: relative;
   overflow: hidden;
+  transition: border-color 0.3s ease;
+}
+
+.formWrap::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0.6;
+}
+
+.formWrap:focus-within {
+  border-color: var(--accent-border);
 }
 
 .glow {
   position: absolute;
-  top: -80px;
-  left: -80px;
-  width: 320px;
-  height: 320px;
-  background: radial-gradient(circle, rgba(232,255,110,0.06) 0%, transparent 70%);
+  top: -100px;
+  left: -100px;
+  width: 380px;
+  height: 380px;
+  background: radial-gradient(circle, rgba(232,255,110,0.12) 0%, transparent 70%);
   pointer-events: none;
+  animation: drift 8s ease-in-out infinite;
+}
+
+.glow::after {
+  content: '';
+  position: absolute;
+  top: 260px;
+  left: 420px;
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(circle, rgba(232,255,110,0.07) 0%, transparent 70%);
+}
+
+@keyframes drift {
+  0%, 100% { transform: translate(0, 0); opacity: 0.85; }
+  50%      { transform: translate(20px, 15px); opacity: 1; }
 }
 
 /* ─── Form ─── */
@@ -61,14 +93,21 @@
   padding: 0.65rem 0.85rem;
   border-radius: 2px;
   outline: none;
-  transition: border-color 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
   width: 100%;
   resize: vertical;
+}
+
+.input:hover,
+.textarea:hover {
+  border-color: var(--muted);
 }
 
 .input:focus,
 .textarea:focus {
   border-color: var(--accent);
+  background: #1f1f1f;
+  box-shadow: 0 0 0 3px var(--accent-dim);
 }
 
 .inputError {
@@ -97,14 +136,16 @@
 }
 
 .chip:hover {
-  border-color: var(--text-secondary);
+  border-color: var(--accent);
   color: var(--white);
+  transform: translateY(-1px);
 }
 
 .chipActive {
   border-color: var(--accent);
   background: rgba(232,255,110,0.08);
   color: var(--accent);
+  box-shadow: 0 0 12px rgba(232,255,110,0.15);
 }
 
 .chipCheck {
@@ -113,18 +154,16 @@
   line-height: 1;
 }
 
-/* ─── reCAPTCHA ─── */
-.captchaWrap {
-  display: flex;
-  justify-content: flex-start;
-  margin-top: 0.25rem;
-}
-
 /* ─── Submit ─── */
 .submit {
   width: 100%;
   justify-content: center;
   margin-top: 0.5rem;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.submit:not(:disabled):hover {
+  box-shadow: 0 0 24px rgba(232,255,110,0.25);
 }
 
 .submit:disabled {

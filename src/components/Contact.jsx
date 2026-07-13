@@ -1,6 +1,5 @@
 import { useRef, useState } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
-import ReCAPTCHA from 'react-google-recaptcha'
 import emailjs from '@emailjs/browser'
 import styles from './Contact.module.css'
 
@@ -18,7 +17,6 @@ import styles from './Contact.module.css'
 const EMAILJS_SERVICE_ID  = import.meta.env.VITE_EMAILJS_SERVICE_ID
 const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
 const EMAILJS_PUBLIC_KEY  = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-const RECAPTCHA_SITE_KEY  = import.meta.env.VITE_RECAPTCHA_SITE_KEY
 
 const SERVICES = [
   'API Integration',
@@ -87,8 +85,6 @@ export default function Contact() {
   const [services, setServices] = useState(new Set())
   const [status, setStatus]     = useState('idle')
   const [touched, setTouched]   = useState({})
-  const [captcha, setCaptcha]   = useState(null)  // reCAPTCHA token
-  const captchaRef              = useRef(null)
 
   const update = (k, v) => setForm((f) => ({ ...f, [k]: v }))
   const touch  = (k)    => setTouched((t) => ({ ...t, [k]: true }))
@@ -101,7 +97,7 @@ export default function Contact() {
     })
   }
 
-  const valid = form.name.trim() && form.email.includes('@') && services.size > 0 && !!captcha
+  const valid = form.name.trim() && form.email.includes('@') && services.size > 0
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -127,9 +123,6 @@ export default function Contact() {
     } catch (err) {
       console.error('EmailJS error:', err)
       setStatus('error')
-      // Reset captcha on error so user can retry
-      captchaRef.current?.reset()
-      setCaptcha(null)
     }
   }
 
@@ -243,17 +236,6 @@ export default function Contact() {
                     rows={4}
                     value={form.message}
                     onChange={(e) => update('message', e.target.value)}
-                  />
-                </div>
-
-                {/* reCAPTCHA */}
-                <div className={styles.captchaWrap}>
-                  <ReCAPTCHA
-                    ref={captchaRef}
-                    sitekey={RECAPTCHA_SITE_KEY || '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'}
-                    onChange={(token) => setCaptcha(token)}
-                    onExpired={() => setCaptcha(null)}
-                    theme="dark"
                   />
                 </div>
 
