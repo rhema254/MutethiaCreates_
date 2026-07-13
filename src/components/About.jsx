@@ -79,8 +79,8 @@ export default function About() {
             We are MutethiaCreates, a software studio based in Nairobi.
           </h2>
           <p>
-            We take complex problems — broken integrations, systems that do not scale,
-            features stuck in sprint — and ship the fix. Our background spans enterprise Java,
+            We take complex problems: broken integrations, systems that do not scale,
+            features stuck in sprint and ship the fix. Our background spans enterprise Java,
             cloud infrastructure, and AI-powered data work.
           </p>
           <p>
